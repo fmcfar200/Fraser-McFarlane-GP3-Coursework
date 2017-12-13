@@ -1,0 +1,40 @@
+/*
+==========================================================================
+Starfield.h
+==========================================================================
+*/
+
+#ifndef _STARFIELD_H
+#define _STARFIELD_H
+
+#include "windowOGL.h"
+#include "glm\glm.hpp"
+#include "glx\glext.h"
+#include "wglext.h"
+#include "GL\glut.h"
+#include "Shapes.h"
+#include <vector>
+
+class Starfield : public Shapes
+{
+public:
+	Starfield();
+	Starfield(GLint theTextureID, glm::vec3 theFieldVolume);
+	virtual void render(float rotAngle);
+	virtual void initialise(Texture theTexture);
+	virtual void initialise(GLint theTextureID, glm::vec3 theFieldVolume);
+
+private:
+
+	GLfloat m_AliasedPointSizes[2];
+	int m_NumStars;
+	glm::vec3 m_FieldVolume;
+	GLuint m_TextureID;
+	glm::vec3 m_StarPos;
+	std::vector<glm::vec3> m_StarField;
+
+	void generateStarField();
+
+};
+
+#endif
