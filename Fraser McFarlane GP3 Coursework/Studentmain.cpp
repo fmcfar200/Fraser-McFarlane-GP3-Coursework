@@ -185,6 +185,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		theOGLWnd.initOGL(windowWidth,windowHeight);
 
+		gluLookAt(theCamera.getTheCameraPos().x, theCamera.getTheCameraPos().y, theCamera.getTheCameraPos().z,
+			thePlayer.getPosition().x, thePlayer.getPosition().y, thePlayer.getPosition().z, 0, 1, 0);
+		theCamera.update();
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
