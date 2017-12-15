@@ -12,6 +12,8 @@ Camera::Camera()
 	m_cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_ProjectionMatrix = glm::mat4(1.0);
 	m_camViewMatrix = glm::mat4(1.0);
+	m_cameraForwardV = glm::vec3(0.0f, 1.0f, 0.0f);
+
 }
 
 
@@ -21,6 +23,8 @@ Camera::Camera(int screenWidth, int screenHeight)
 	m_cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_ProjectionMatrix = glm::mat4(1.0);
 	m_camViewMatrix = glm::mat4(1.0);
+	m_cameraForwardV = glm::vec3(0.0f, 1.0f, 0.0f);
+
 }
 
 Camera::~Camera()
@@ -76,7 +80,7 @@ glm::vec3 Camera::getTheCameraLookAt()
 
 void Camera::setTheCameraDirection()
 {
-	m_cameraDirection = glm::normalize(m_cameraPos - m_cameraLookAt);
+	m_cameraDirection = glm::normalize(m_cameraPos /*- m_cameraLookAt*/);
 }
 
 glm::vec3 Camera::getTheCameraDirection()
@@ -124,11 +128,43 @@ glm::mat4 Camera::getCamViewMatrix()
 	return m_camViewMatrix;
 }
 
+
+
 void Camera::update()
 {
+	
 	setTheCameraDirection();
 	setTheCameraStrafe();
 	setTheCameraUpVector(glm::cross(m_cameraDirection, m_cameraStrafe));
 	setTheProjectionMatrix(45.0f, getTheCameraAspectRatio(), 0.1f, 300.0f);
 	setCamViewMatrix();
+
+	/*
+	const float speed = 0.5f;
+	if (m_InputMgr->isKeyDown('W'))
+	{
+		m_cameraPos -= m_cameraDirection * speed;
+	}
+	else if (m_InputMgr->isKeyDown('S'))
+	{
+		m_cameraPos += m_cameraDirection * speed;
+	}
+	else if (m_InputMgr->isKeyDown('A'))
+	{
+		glm::vec3 strafeDirection = glm::cross(m_cameraDirection, m_cameraUpVector);
+		m_cameraPos += speed * -strafeDirection;
+	}
+	else if (m_InputMgr->isKeyDown('D'))
+	{
+		glm::vec3 strafeDirection = glm::cross(m_cameraDirection, m_cameraUpVector);
+		m_cameraPos += speed * strafeDirection;
+	}
+	*/
+		
+}
+
+
+void Camera::attachInputManager(InputManager* inputMgr)
+{
+	m_InputMgr = inputMgr;
 }

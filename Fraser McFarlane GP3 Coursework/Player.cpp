@@ -2,7 +2,6 @@
 
 Player::Player() : Model()
 {
-
 }
 
 void Player::attachInputMgr(InputManager* inputMgr)
@@ -14,11 +13,11 @@ void Player::update(float elapsedTime)
 {
 	if (m_InputMgr->isKeyDown(VK_RIGHT))
 	{
-		rotationAngle += 5.0f;
+		m_mdlPosition.x += 0.1f;
 	}
 	if (m_InputMgr->isKeyDown(VK_LEFT))
 	{
-		rotationAngle -= 5.0f;
+		m_mdlPosition.x -= 0.1f;
 	}
 	if (m_InputMgr->isKeyDown(VK_UP))
 	{
@@ -28,6 +27,7 @@ void Player::update(float elapsedTime)
 	{
 		translationZ -= 5.0f;
 	}
+	
 
 	if (m_InputMgr->isKeyDown(VK_SPACE))
 	{

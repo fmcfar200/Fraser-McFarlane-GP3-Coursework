@@ -9,6 +9,8 @@ cCamera.h
 
 // OpenGL Headers
 #include "GameConstants.h"
+#include "InputManager.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -24,6 +26,8 @@ private:
 	glm::vec3 m_cameraPos;			// Position of Camera in world
 	glm::vec3 m_cameraLookAt;		// Where the camera is looking
 	glm::vec3 m_cameraUpVector;		// Cameras up vector
+	glm::vec3 m_cameraForwardV;		// Cameras f vector
+
 	glm::vec3 m_cameraDirection;	// direction it is pointing at
 	glm::vec3 m_cameraStrafe;		// Strafe - move on X
 	GLfloat m_AspectRatio;
@@ -32,7 +36,11 @@ private:
 
 
 	glm::vec4 m_viewPort;
+	InputManager* m_InputMgr;
 
+	glm::vec2 oldMousePos;
+
+	Player* thePlayer;
 
 public:
 
@@ -69,5 +77,8 @@ public:
 	glm::mat4 getTheViewMatrix();
 
 	void update();
+
+	void attachInputManager(InputManager *inputMgr);
+
 };
 #endif

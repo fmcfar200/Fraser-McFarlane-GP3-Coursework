@@ -81,7 +81,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	// Create Texture map
 	Texture tardisTexture;
-	tardisTexture.createTexture("Models/tardis.png");
+	tardisTexture.createTexture("Models/Tardis.jpg");
 	Texture spaceShipTexture;
 	spaceShipTexture.createTexture("Models/SpaceShip/sh3.jpg");
 	Texture laserTexture;
@@ -149,21 +149,25 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		theEnemy[loop]->setScale(glm::vec3(5, 5, 5));
 	}
 
-
 	Player thePlayer;
-	thePlayer.initialise(glm::vec3(0, 0, 0), 0.0f, glm::vec3(1, 1, 1), glm::vec3(0, 0, 0), 5.0f, true);
+	thePlayer.initialise(glm::vec3(0, 0, -65.0f), 180.0f, glm::vec3(1, 1, 1), glm::vec3(0, 0, 0), 5.0f, true);
 	thePlayer.setMdlDimensions(tardisMdl.getModelDimensions());
 	thePlayer.attachInputMgr(theInputMgr);
 	thePlayer.attachSoundMgr(theSoundMgr);
 
-	// Create a camera
 	Camera theCamera;
-	theCamera.setTheCameraPos(glm::vec3(0.0f, 0.0f, 75.0f));
+	theCamera.setTheCameraPos(glm::vec3(0.0f, 3.5f, 75.0f));
 	theCamera.setTheCameraLookAt(glm::vec3(0.0f, 0.0f, 0.0f));
 	theCamera.setTheCameraUpVector(glm::vec3(0.0f, 1.0f, 0.0f)); // pointing upwards in world space
 	theCamera.setTheCameraAspectRatio(windowWidth, windowHeight);
 	theCamera.setTheProjectionMatrix(45.0f, theCamera.getTheCameraAspectRatio(), 0.1f, 300.0f);
+	theCamera.attachInputManager(theInputMgr);
 	theCamera.update();
+
+	
+
+	// Create a camera
+	
 
 	float tCount = 0.0f;
 	string outputMsg;
@@ -185,9 +189,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		theOGLWnd.initOGL(windowWidth,windowHeight);
 
-		gluLookAt(theCamera.getTheCameraPos().x, theCamera.getTheCameraPos().y, theCamera.getTheCameraPos().z,
-			thePlayer.getPosition().x, thePlayer.getPosition().y, thePlayer.getPosition().z, 0, 1, 0);
-		theCamera.update();
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -211,6 +212,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 		tardisMdl.renderMdl(thePlayer.getPosition(), thePlayer.getRotation(), thePlayer.getScale());
 		thePlayer.update(elapsedTime);
+		theCamera.update();
 		
 		for (vector<Laser*>::iterator laserIterartor = theTardisLasers.begin(); laserIterartor != theTardisLasers.end(); ++laserIterartor)
 		{
