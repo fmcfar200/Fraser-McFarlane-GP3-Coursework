@@ -31,10 +31,11 @@
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Starfield.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TransformManager.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="WNDManager.cpp" />
     <ClCompile Include="GameConstants.cpp" />
-    <ClCompile Include="Studentmain.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="tardisWarsGame.cpp" />
     <ClCompile Include="windowOGL.cpp" />
   </ItemGroup>
@@ -59,6 +60,7 @@
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Starfield.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TransformManager.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="WNDManager.h" />
     <ClInclude Include="GameConstants.h" />

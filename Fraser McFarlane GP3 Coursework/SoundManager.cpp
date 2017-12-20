@@ -34,14 +34,14 @@ SoundManager* SoundManager::getInstance()
 
 void SoundManager::createContext()
 {
-	m_OALDevice = alcOpenDevice(NULL);
-	if (m_OALDevice)
+	OALDevice = alcOpenDevice(NULL);
+	if (OALDevice)
 	{
 		//Create a context
-		m_OALContext = alcCreateContext(m_OALDevice, NULL);
+		OALContext = alcCreateContext(OALDevice, NULL);
 
 		//Set active context
-		alcMakeContextCurrent(m_OALContext);
+		alcMakeContextCurrent(OALContext);
 	}
 }
 
@@ -79,15 +79,15 @@ void SoundManager::deleteSnd()
 
 SoundManager::~SoundManager()
 {
-	m_OALContext = alcGetCurrentContext();
+	OALContext = alcGetCurrentContext();
 
 	//Get device for active context
-	m_OALDevice = alcGetContextsDevice(m_OALContext);
+	OALDevice = alcGetContextsDevice(OALContext);
 
 	//Release context(s)
-	alcDestroyContext(m_OALContext);
+	alcDestroyContext(OALContext);
 
 	//Close device
-	alcCloseDevice(m_OALDevice);
+	alcCloseDevice(OALDevice);
 
 }

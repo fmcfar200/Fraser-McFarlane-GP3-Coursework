@@ -19,19 +19,19 @@ class Sound
 {
 private:
 
-	char*        m_OALData;           //data for the buffer
-	ALenum       m_OALFormat;         //buffer format
-	ALsizei      m_OALFrequency;     //frequency
-	long         m_OALBufferLen;      //bit depth
-	int			 m_OALChannels;		  // Channels
-	int			 m_OALSize;			  // Size
-	int			 m_OALBitRate;		  // Bit Rate
-	float        m_OALLength;		  // Length
-	ALboolean    m_OALLoop;           //loop
-	unsigned int m_OALSource;         //source
-	ALuint       m_OALBuffer;         // Buffer
-	ALboolean    m_OALbEAX;			  // for EAX 2.0 support
-	ALboolean    m_alLoop;			  //loop
+	char*        OALData;           //data for the buffer
+	ALenum       OALFormat;         //buffer format
+	ALsizei      OALFrequency;     //frequency
+	long         OALBufferLen;      //bit depth
+	int			 OALChannels;		  // Channels
+	int			 OALSize;			  // Size
+	int			 OALBitRate;		  // Bit Rate
+	float        OALLength;		  // Length
+	ALboolean    OALLoop;           //loop
+	unsigned int OALSource;         //source
+	ALuint       OALBuffer;         // Buffer
+	ALboolean    OALbEAX;			  // for EAX 2.0 support
+	ALboolean    alLoop;			  //loop
 
 	struct FMTCHUNK {
 		short format;
@@ -42,15 +42,15 @@ private:
 		short samp;
 	};
 
-	void LoadWAVInfo(ifstream &filename, string &name, unsigned int &size);
+	void LoadWAVInfo(ifstream &filename, string &name, unsigned int &size); //loads wav file data
 
 public:
-	Sound();
-	~Sound();
+	Sound(); //constructor
+	~Sound(); //destructor
 
-	void loadWAVFile(LPCSTR filename);
-	void playAudio( ALboolean sndLoop);
-	void stopAudio();
-	void cleanUp();
+	void loadWAVFile(LPCSTR filename);	//loads wav file from filname
+	void playAudio( ALboolean sndLoop);	//plays audio file
+	void stopAudio();	//stops audop
+	void cleanUp();	//deletes sources and contexts
 };
 #endif

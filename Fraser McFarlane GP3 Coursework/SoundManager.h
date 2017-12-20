@@ -18,8 +18,8 @@ class SoundManager
 {
 private:
 	static SoundManager* pInstance;
-	ALCcontext *m_OALContext;
-	ALCdevice *m_OALDevice;
+	ALCcontext *OALContext;
+	ALCdevice *OALDevice;
 
 protected:
 	SoundManager();

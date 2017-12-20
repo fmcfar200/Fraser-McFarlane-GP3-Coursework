@@ -135,10 +135,11 @@ void Camera::update()
 	
 	setTheCameraDirection();
 	setTheCameraStrafe();
+	setTheCameraLookAt(glm::vec3(0,0,1));
 	setTheCameraUpVector(glm::cross(m_cameraDirection, m_cameraStrafe));
 	setTheProjectionMatrix(45.0f, getTheCameraAspectRatio(), 0.1f, 300.0f);
 	setCamViewMatrix();
-
+	
 	/*
 	const float speed = 0.5f;
 	if (m_InputMgr->isKeyDown('W'))
