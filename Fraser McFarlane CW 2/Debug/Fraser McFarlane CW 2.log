@@ -1,0 +1,63 @@
+﻿Build started 03/01/2018 23:42:43.
+     1>Project "C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Fraser McFarlane CW 2\Fraser McFarlane CW 2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Fraser\Documents\Uni\GP3\Fraser McFarlane CW 2\Fraser McFarlane CW 2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_DEPRECATE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Bomb.cpp Light.cpp SDLDisplay.cpp Enemy.cpp Font.cpp FontManager.cpp InputManager.cpp main.cpp ModelManager.cpp obj_loader.cpp ShaderManager.cpp Sound.cpp SoundManager.cpp TextureManager.cpp TheGame.cpp
+         TheGame.cpp
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\thegame.cpp(63): warning C4305: 'argument' : truncation from 'int' to 'ALboolean'
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\thegame.cpp(63): warning C4309: 'argument' : truncation of constant value
+         TextureManager.cpp
+         SoundManager.cpp
+         Sound.cpp
+         ShaderManager.cpp
+         obj_loader.cpp
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\obj_loader.cpp(378): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+         ModelManager.cpp
+         main.cpp
+         InputManager.cpp
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\inputmanager.cpp(31): warning C4800: 'const Uint8' : forcing value to bool 'true' or 'false' (performance warning)
+         FontManager.cpp
+         Font.cpp
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\font.cpp(44): warning C4244: 'argument' : conversion from 'FTGL_DOUBLE' to 'GLfloat', possible loss of data
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\font.cpp(57): warning C4244: 'argument' : conversion from 'FTGL_DOUBLE' to 'GLfloat', possible loss of data
+         Enemy.cpp
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\enemy.cpp(8): warning C4305: '+=' : truncation from 'double' to 'float'
+         SDLDisplay.cpp
+         Light.cpp
+         Bomb.cpp
+         Generating Code...
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\soundmanager.cpp(73): warning C4715: 'SoundManager::getSnd' : not all control paths return a value
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Fraser\Documents\Uni\GP3\Fraser McFarlane CW 2\Fraser McFarlane CW 2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_DEPRECATE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt stb_image.c
+         stb_image.c
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\stb_image.c(83): warning C4005: '_CRT_SECURE_NO_DEPRECATE' : macro redefinition
+                 command-line arguments :  see previous definition of '_CRT_SECURE_NO_DEPRECATE'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Debug\Fraser McFarlane CW 2.exe" /INCREMENTAL /NOLOGO OpenGL32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Debug\Fraser McFarlane CW 2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Debug\Fraser McFarlane CW 2.lib" /MACHINE:X86 Debug\Bomb.obj
+         Debug\Light.obj
+         Debug\SDLDisplay.obj
+         Debug\Enemy.obj
+         Debug\Font.obj
+         Debug\FontManager.obj
+         Debug\InputManager.obj
+         Debug\main.obj
+         Debug\ModelManager.obj
+         Debug\obj_loader.obj
+         Debug\ShaderManager.obj
+         Debug\Sound.obj
+         Debug\SoundManager.obj
+         Debug\stb_image.obj
+         Debug\TextureManager.obj
+         Debug\TheGame.obj
+         lib\alut.lib
+         lib\ftgl.lib
+         lib\glew32.lib
+         lib\glew32s.lib
+         lib\OpenAL32.lib
+         lib\SDL2.lib
+         lib\SDL2main.lib
+         lib\SDL2test.lib
+         Fraser McFarlane CW 2.vcxproj -> C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Debug\Fraser McFarlane CW 2.exe
+     1>Done Building Project "C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Fraser McFarlane CW 2\Fraser McFarlane CW 2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:13.90
