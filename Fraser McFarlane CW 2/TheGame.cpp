@@ -25,6 +25,7 @@ void TheGame::InitObjects()
 
 	display = new SDLDisplay(WIDTH, HEIGHT, "HEllo");
 
+	
 
 	robot = new ModelManager("res/R01.obj");
 	bomb = new ModelManager("res/Bob.obj");
@@ -66,11 +67,22 @@ void TheGame::RunGame()
 {
 	theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);
 
+	
+	
+	glPopMatrix();
 	//while the display is not closed
 	while (!display->IsClosed())
 	{
+		
+		
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+
+		glPushMatrix();
+		display->setOrthographicProj(WIDTH, HEIGHT);
+		theFontManager->getFont("DrWho")->printText("Hello World", FTPoint(10.0f, 35.0f, 0.0f), colour3f(225.0f, 0.0f, 0.0f));
+		glPopMatrix();
 
 		display->setMVP(WIDTH, HEIGHT);
 		mInputMgr->UpdateInput(cameraTransform); //update manager
@@ -228,6 +240,8 @@ void TheGame::CheckCollisions()
 
 void TheGame::UpdateAndRender()
 {
+	
+
 	Camera camera(cameraTransform.GetPos(), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
 	Camera camera2(camera2Transform.GetPos(), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
 	Camera currentCam;
@@ -376,13 +390,7 @@ void TheGame::UpdateAndRender()
 
 
 	glEnd();
-	glPushMatrix();
-	display->setOrthographicProj(WIDTH, HEIGHT);
-	theFontManager->getFont("DrWho")->printText("Hello World", FTPoint(10.0f, 35.0f, 0.0f), colour3f(225.0f, 0.0f, 0.0f));
-	glPopMatrix();
-
-	glMatrixMode(GL_PROJECTION);
-	glMatrixMode(GL_MODELVIEW);
+	
 
 
 	//Swap the buffer for a window

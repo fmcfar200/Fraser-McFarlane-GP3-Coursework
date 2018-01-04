@@ -1,6 +1,7 @@
 #pragma warning ( disable : 4996 )
 #include "Font.h"
 
+
 Font::Font() //defualt construct
 {
 	theFont = NULL;
