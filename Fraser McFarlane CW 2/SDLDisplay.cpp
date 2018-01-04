@@ -61,6 +61,7 @@ bool SDLDisplay::IsClosed()
 
 void SDLDisplay::setOrthographicProj(int width, int height)
 {
+	/*
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glViewport(0, 0, width, height);
@@ -69,6 +70,17 @@ void SDLDisplay::setOrthographicProj(int width, int height)
 	glOrtho(0.0, width, height, 0.0, 0.0, -1.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	*/
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, width, height, 0, 0, -1.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glPushMatrix();
+	
 }
 
 void SDLDisplay::setMVP(int width, int height)

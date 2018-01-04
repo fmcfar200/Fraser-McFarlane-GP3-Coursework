@@ -40,7 +40,6 @@ private:
 	vector<Bomb*> theBombs;
 	vector<Enemy*> thEnemies;
 
-	LPCSTR fonts;
 
 	ModelManager* robot;
 	ModelManager* bomb;
@@ -56,13 +55,13 @@ private:
 	TextureManager* textureShip;
 	TextureManager* textureDesert;
 
-	Transform cameraTransform = glm::vec3(0, 20, 0);
+	Transform cameraTransform = glm::vec3(-50, 20, -400);
 	Transform camera2Transform = glm::vec3(0, 20, 0);
 
 	Transform transformBomb = glm::vec3(0, 20, 5);
-	Transform transformRobot = glm::vec3(0, 0, 0);
+	Transform transformRobot = glm::vec3(-50, 0, -400);
 	Transform transoformAlien = glm::vec3(0, 0, 20);
-	Transform transformShip = glm::vec3(0, 0, 40);
+	Transform transformShip = glm::vec3(0, 0, -450);
 	Transform transformGround = glm::vec3(0, -20, 0);
 
 	Camera* camera;
@@ -88,6 +87,8 @@ private:
 	float timer = 0;
 	float fireDelay = 1.0f;
 	float camTimer = 0;
+
+	float health = 100;
 
 
 

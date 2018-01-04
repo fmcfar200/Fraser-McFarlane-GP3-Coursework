@@ -2,7 +2,7 @@
 
 
 LPCSTR sounds[3] = {"res/throw.wav", "res/hitenemy.wav", "res/thememusic.wav"};
-
+LPCSTR fonts[1] = { "res/doctor_who.ttf" };
 
 TheGame::TheGame()
 {
@@ -43,6 +43,8 @@ void TheGame::InitObjects()
 	theSoundManager->add("Throw", sounds[0]);
 	theSoundManager->add("Hit", sounds[1]);
 	theSoundManager->add("Music", sounds[2]);
+
+	theFontManager->addFont("DrWho", fonts[0], 48);
 
 
 
@@ -109,7 +111,6 @@ void TheGame::RunGame()
 		if (mInputMgr->isKeyDown(SDL_SCANCODE_Q))
 		{
 			transformRobot.GetRot().y += 0.1f;
-			cameraTransform.GetRot().y = transformRobot.GetRot().y;
 		}
 		if (mInputMgr->isKeyDown(SDL_SCANCODE_E))
 		{
@@ -190,8 +191,6 @@ void TheGame::RunGame()
 			}
 		}
 
-
-
 		if (mInputMgr->isKeyDown(SDL_SCANCODE_ESCAPE))
 		{
 			SDL_Quit();
@@ -201,10 +200,6 @@ void TheGame::RunGame()
 		//display colour set to WHite
 		display->ClearDisplayColour(0.0f, 0.0f, 0.5f, 1.0f);
 
-		
-
-
-		
 	}
 }
 
@@ -218,23 +213,25 @@ void TheGame::CheckCollisions()
 		{
 			if ((*enemyIterator)->SphereCollision((*bombIterartor)->bombTrans.GetPos(), 2.5f))
 			{
-				/*
-				// if a collision set the bullet and spaceship to false
-				(*enemyIterator)->setIsActive(false);
-				(*laserIterartor)->setIsActive(false);
-				// play the explosion sound.
-				m_SoundMgr->getSnd("Explosion")->playAudio(AL_TRUE);
-				*/
-
 				(*enemyIterator)->isActive = false;
 				(*bombIterartor)->isActive = false;
 				theSoundManager->getSnd("Hit")->playAudio(AL_TRUE);
-				enemiesAlive--;
-				cout << "HIT  EnemiesAlive: " << enemiesAlive << endl;
-
 			}
 		}
 	}
+
+	for (vector<Enemy*>::iterator enemyIterator = thEnemies.begin(); enemyIterator != thEnemies.end(); ++enemyIterator)
+	{
+		if ((*enemyIterator)->SphereCollision(transformRobot.GetPos(), 2.5f))
+		{
+			(*enemyIterator)->isActive = false;
+			theSoundManager->getSnd("Hit")->playAudio(AL_TRUE);
+			health -= 35;
+			cout << health << endl;
+		}
+		
+	}
+	
 }
 
 void TheGame::UpdateAndRender()
@@ -289,9 +286,8 @@ void TheGame::UpdateAndRender()
 			waveNo++;
 			for (int i = 0; i < spawnCount; i++)
 			{
-				thEnemies.push_back(new Enemy(vec3(rand() % 250 , 0, rand()% 100 + 250)));
+				thEnemies.push_back(new Enemy(vec3((rand() % 250) - 100 , 0, rand()% 100 + 250)));
 				thEnemies[i]->speed += (float)(rand() % 5 + 2) / 10;
-				cout << thEnemies[i]->speed << endl;
 				thEnemies[i]->isActive = true;
 				enemiesAlive++;
 				offset += 50;
@@ -304,7 +300,7 @@ void TheGame::UpdateAndRender()
 			{
 				thEnemies.clear();
 				offset = 0;
-
+				spawnCount += rand() % 3 + 1;
 				if (spawnCount >= 25)
 				{
 					spawnCount = 25;
@@ -362,8 +358,15 @@ void TheGame::UpdateAndRender()
 	vector<Enemy*>::iterator enemyIterartor = thEnemies.begin();
 	while (enemyIterartor != thEnemies.end())
 	{
+		if ((*enemyIterartor)->enemyTrans.GetPos().z <= -500)
+		{
+			health -= 20;
+			(*enemyIterartor)->isActive = false;
+		}
+
 		if ((*enemyIterartor)->isActive == false)
 		{
+			enemiesAlive--;
 			enemyIterartor = thEnemies.erase(enemyIterartor);
 		}
 		else
@@ -372,11 +375,22 @@ void TheGame::UpdateAndRender()
 		}
 	}
 
+	if (health <= 0)
+	{
+		cout << "GAME OVER" << endl;
+		cout << "You survived until wave " << waveNo << flush << endl;
+		display->~SDLDisplay();
+	}
 
+
+	glEnd();
 	glPushMatrix();
 	display->setOrthographicProj(WIDTH, HEIGHT);
-	//theFontManager->getFont("DrWho")->printText("Hello World", FTPoint(50, 50, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
+	theFontManager->getFont("DrWho")->printText("Hello World", FTPoint(10.0f, 35.0f, 0.0f), colour3f(225.0f, 0.0f, 0.0f));
 	glPopMatrix();
+
+	glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_MODELVIEW);
 
 
 	//Swap the buffer for a window

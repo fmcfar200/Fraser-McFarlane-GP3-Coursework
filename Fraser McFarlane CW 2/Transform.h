@@ -4,12 +4,20 @@
 
 class Transform
 {
+private:
+	//member pos , rot and scale vectors
+	vec3 m_position;
+	vec3 m_rotation;
+	vec3 m_scale;
+
 public:
+
 	//constructor
 	Transform(const vec3& pos = vec3(), const vec3 rot = vec3(), const vec3& scale = vec3(1.0f, 1.0f, 1.0f)) :
 		m_position(pos),
 		m_rotation(rot),
 		m_scale(scale){}
+
 
 	//Creates Model Matrix
 	inline mat4 GetModel() const
@@ -57,10 +65,6 @@ public:
 		m_scale = scale; 
 	}
 	
-private:
-	//member pos , rot and scale vectors
-	vec3 m_position;
-	vec3 m_rotation;
-	vec3 m_scale;
+
 	
 };
