@@ -67,7 +67,11 @@ void TheGame::RunGame()
 {
 	theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);
 
-	
+	if (theSoundManager->getSnd("Music")->isPlaying() == false)
+	{
+		theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);
+
+	}
 	
 	glPopMatrix();
 	//while the display is not closed
@@ -75,7 +79,6 @@ void TheGame::RunGame()
 	{
 		
 		
-
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 

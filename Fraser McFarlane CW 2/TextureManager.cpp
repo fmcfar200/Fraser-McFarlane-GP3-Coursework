@@ -9,21 +9,33 @@ TextureManager::TextureManager() //default
 
 TextureManager::TextureManager(const std::string& fileName)
 {
-	int width, height, numComponents;
+	
+	LoadTextureData(fileName);
+	GenerateTexture();
+	//Deletes image data
+	stbi_image_free(imageData);
+}
+
+void TextureManager::LoadTextureData(const string& fileName)
+{
+	
 	//Loads texture data
-	unsigned char* imageData = stbi_load(fileName.c_str(), &width, &height, &numComponents, 4);
+	imageData = stbi_load(fileName.c_str(), &width, &height, &numComponents, 4);
 
 	if (imageData == NULL)
 	{
 		std::cerr << "Texture loading failed: " << fileName << std::endl;
 	}
+}
 
+void TextureManager::GenerateTexture()
+{
 	//generates textures and bind it to the buffer object
 	glGenTextures(1, &m_texture);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
 	glGenerateMipmap(GL_TEXTURE_2D);
-	
+
 	//sets wrapping parameters 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -35,14 +47,11 @@ TextureManager::TextureManager(const std::string& fileName)
 	//Sends texture to GPU
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
 
-	//Deletes image data
-	stbi_image_free(imageData);
 }
-
 
 TextureManager::~TextureManager()
 {
-	glDeleteTextures(1, &m_texture);
+	glDeleteTextures(1, &m_texture); //detructor deletes texture
 }
 
 void TextureManager::BindTexture(unsigned int unit)

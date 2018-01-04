@@ -42,5 +42,6 @@ public:
 	void playAudio( ALboolean sndLoop);	//plays audio file
 	void stopAudio();	//stops audop
 	void cleanUp();	//deletes sources and contexts
+	bool isPlaying();
 };
 #endif

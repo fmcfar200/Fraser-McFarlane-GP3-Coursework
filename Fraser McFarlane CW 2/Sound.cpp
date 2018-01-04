@@ -93,3 +93,12 @@ void Sound::cleanUp()
 	//release the data
 	delete OALData;
 }
+
+bool Sound::isPlaying()
+{
+	ALenum state;
+
+	alGetSourcei(OALSource, AL_SOURCE_STATE, &state);
+
+	return (state == AL_PLAYING);
+}

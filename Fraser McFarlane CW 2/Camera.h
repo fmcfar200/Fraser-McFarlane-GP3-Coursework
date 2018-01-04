@@ -2,7 +2,6 @@
 
 #include "Constants.h"
 
-using namespace glm;
 class Camera
 {
 
@@ -29,6 +28,8 @@ public:
 		m_forwardVec = vec3(0, 0, 1);
 		//sets the up vector
 		m_upVec = vec3(0, 1, 0);
+
+		setView();
 	}
 		
 	//getters
@@ -42,6 +43,11 @@ public:
 		return m_upVec;
 	}
 
+	inline mat4 GetView()
+	{
+		viewmat = lookAt(m_position, m_position + m_forwardVec, m_upVec);
+		return viewmat;
+	}
 	//Calculates the view projection matrix
 	inline mat4 GetViewProjectionMatrix() const
 	{
@@ -49,6 +55,10 @@ public:
 
 	}
 
+	void setView()
+	{
+		viewmat = lookAt(m_position, m_position + m_forwardVec, m_upVec);
+	}
 
-
+	mat4 viewmat;
 };
