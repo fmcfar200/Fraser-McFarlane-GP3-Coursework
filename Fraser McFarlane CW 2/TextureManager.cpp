@@ -1,9 +1,8 @@
 #include "TextureManager.h"
 #include "stb_image.h"
-#include <cassert>
-#include <iostream>
+#include "Constants.h"
 
-TextureManager::TextureManager()
+TextureManager::TextureManager() //default 
 {
 
 }

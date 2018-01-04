@@ -68,7 +68,9 @@ private:
 	Camera* camera2;
 	Camera* currentCam;
 
-	SDL_Event evt;
+	
+
+
 
 	int offset = 0;
 	int xpos = 0;

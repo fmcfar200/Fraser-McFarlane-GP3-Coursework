@@ -4,6 +4,7 @@
 LPCSTR sounds[3] = {"res/throw.wav", "res/hitenemy.wav", "res/thememusic.wav"};
 LPCSTR fonts[1] = { "res/doctor_who.ttf" };
 
+
 TheGame::TheGame()
 {
 	InitObjects();
@@ -23,7 +24,8 @@ void TheGame::InitObjects()
 	theFontManager = FontManager::getInstance();
 
 	display = new SDLDisplay(WIDTH, HEIGHT, "HEllo");
-	
+
+
 	robot = new ModelManager("res/R01.obj");
 	bomb = new ModelManager("res/Bob.obj");
 	enemy = new ModelManager("res/Alien.obj");
@@ -71,24 +73,14 @@ void TheGame::RunGame()
 		glLoadIdentity();
 
 		display->setMVP(WIDTH, HEIGHT);
-		mInputMgr->UpdateInput(); //update manager
+		mInputMgr->UpdateInput(cameraTransform); //update manager
 		UpdateAndRender();
 		CheckCollisions();
-
 
 		/*
 		Test For Controller
 		*/
-		while (SDL_PollEvent(&evt) != 0)
-		{
-			if (evt.type == SDL_JOYAXISMOTION)
-			{
-				if (evt.jaxis.axis == 0)
-				{
-					std::cout << evt.jaxis.value << std::endl;
-				}
-			}
-		}
+		
 
 		//perform transform to camera  from WASD
 		if (mInputMgr->isKeyDown(SDL_SCANCODE_W))
