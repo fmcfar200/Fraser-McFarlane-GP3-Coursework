@@ -72,6 +72,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SDLDisplay.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Font.h" />
@@ -90,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SDLDisplay.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />

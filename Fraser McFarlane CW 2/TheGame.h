@@ -14,6 +14,7 @@
 #include "SoundManager.h"
 #include "FontManager.h"
 #include "Light.h"
+#include "Player.h"
 
 
 class TheGame
@@ -40,6 +41,7 @@ private:
 	vector<Bomb*> theBombs;
 	vector<Enemy*> thEnemies;
 
+	Player* player;
 
 	ModelManager* robot;
 	ModelManager* bomb;

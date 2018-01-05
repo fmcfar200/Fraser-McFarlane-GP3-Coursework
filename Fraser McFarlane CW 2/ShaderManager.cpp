@@ -71,6 +71,13 @@ void ShaderManager::Update(const Transform& transform, const Camera& camera)
 	glUniformMatrix4fv(m_uniforms[TRANSFORM_U], 1, GL_FALSE, &model[0][0]);
 	//glUniform3f(m_uniforms[CAMDIR_UNIF], camera.GetForwardV().x, camera.GetForwardV().y, camera.GetForwardV().z);
 }
+void ShaderManager::Update(const Transform *transform, const Camera& camera)
+{
+	glm::mat4 model = camera.GetViewProjectionMatrix() * transform->GetModel();
+
+	glUniformMatrix4fv(m_uniforms[TRANSFORM_U], 1, GL_FALSE, &model[0][0]);
+	//glUniform3f(m_uniforms[CAMDIR_UNIF], camera.GetForwardV().x, camera.GetForwardV().y, camera.GetForwardV().z);
+}
 
  GLuint ShaderManager::CreateShader(const std::string& text, GLenum shaderType)
 {

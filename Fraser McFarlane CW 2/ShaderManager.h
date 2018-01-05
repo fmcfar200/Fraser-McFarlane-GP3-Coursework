@@ -38,6 +38,7 @@ public:
 
 	void BindShader();	//binds the shader
 	void Update(const Transform& transform, const Camera& camera); //update using teh transform and camera
+	void Update(const Transform *transform, const Camera& camera);
 
 
 };

@@ -26,7 +26,7 @@ void TheGame::InitObjects()
 	display = new SDLDisplay(WIDTH, HEIGHT, "HEllo");
 
 	
-
+	player = new Player(vec3(-50, 0, -350), "res/R1.jpg", "res/R01.obj");
 	robot = new ModelManager("res/R01.obj");
 	bomb = new ModelManager("res/Bob.obj");
 	enemy = new ModelManager("res/Alien.obj");
@@ -263,10 +263,16 @@ void TheGame::UpdateAndRender()
 	transformRobot.GetPos().x = cameraTransform.GetPos().x;
 	transformRobot.GetPos().z = cameraTransform.GetPos().z;
 
+	player->getTrans().GetPos().x = cameraTransform.GetPos().x;
+	player->getTrans().GetPos().z = cameraTransform.GetPos().z;
 
 	transformRobot.GetPos().z += 20.0f;
 	transformRobot.GetPos().x += 10.0f;
 	transformRobot.GetPos().y = 10.0f;
+
+	player->getTrans().GetPos().z += 20;
+	player->getTrans().GetPos().x += 10.0f;
+	player->getTrans().GetPos().y = 10.0f;
 
 	camera2Transform.SetPos(glm::vec3(transformRobot.GetPos().x,
 		transformRobot.GetPos().y + 6.0f, transformRobot.GetPos().z + 2.0f));
@@ -276,6 +282,12 @@ void TheGame::UpdateAndRender()
 	shader->Update(transformRobot, currentCam);
 	textureRobot->BindTexture(0);
 	robot->DrawMesh();
+
+	shader->BindShader();
+	shader->Update(player->getTrans(), currentCam);
+	player->Render();
+
+
 
 	shader->BindShader();
 	shader->Update(transformShip, currentCam);
