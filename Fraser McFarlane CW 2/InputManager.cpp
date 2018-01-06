@@ -27,20 +27,17 @@ InputManager* InputManager::getInstance()
 }
 
 
-bool InputManager::isKeyDown(SDL_Scancode scanCode)
+bool InputManager::isKeyDown(SDL_Scancode sdlcode)
 {
 
-	return m_KeyboardStates[scanCode];	//returns the key state of the passed in sdl scancode
+	return states[sdlcode];	//returns the key state of the passed in sdl scancode
 }
 
 void InputManager::UpdateInput(Transform trans)
 {
-	m_KeyboardStates = SDL_GetKeyboardState(NULL);
+	states = SDL_GetKeyboardState(NULL);
 	//gets the keyboard state
 	SDL_Event evt;
-	
-
-
 
 	while (SDL_PollEvent(&evt))
 	{
