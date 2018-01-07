@@ -10,7 +10,7 @@ class ShaderManager
 private:
 	static const int NUM_SHADER = 2;	//number of shaders that will be used in a program
 
-	// enum flags for setting uniform values within the shader
+	// enum flags for setting uniform values
 	enum
 	{
 		TRANSFORM_U,

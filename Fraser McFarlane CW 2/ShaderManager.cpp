@@ -7,13 +7,13 @@ ShaderManager::ShaderManager()
 
 ShaderManager::ShaderManager(const std::string& fileName)
 {
-	//Creates the program by allocating space for it
+	//Creates the program object
 	m_program = glCreateProgram();
-	//Finds and creates the shaders from the folders position
+	//Finds and creates the shaders from filename
 	m_shaders[0] = CreateShader(LoadShader(fileName + ".vert"), GL_VERTEX_SHADER);
 	m_shaders[1] = CreateShader(LoadShader(fileName + ".frag"), GL_FRAGMENT_SHADER);
 
-	//Attaches the shaders to the program
+	//Attaches the shaders 
 	for (unsigned int i = 0; i < NUM_SHADER; i++)
 	{
 		glAttachShader(m_program, m_shaders[i]);
@@ -25,7 +25,7 @@ ShaderManager::ShaderManager(const std::string& fileName)
 
 void ShaderManager::SetUniforms()
 {
-	//Updates the location of the attributes
+	//Updates the attribs
 	m_uniforms[TRANSFORM_U] = glGetUniformLocation(m_program, "transform");
 	m_uniforms[LPOS_U] = glGetUniformLocation(m_program, "lightPos");
 	m_uniforms[SPOTDIR_U] = glGetUniformLocation(m_program, "spotDirection");
@@ -36,7 +36,7 @@ void ShaderManager::SetUniforms()
 
 void ShaderManager::AttachAttribs()
 {
-	//Tells the shader where it's mapping the attribute
+	//mapping of attribs
 	glBindAttribLocation(m_program, 0, "position");
 	glBindAttribLocation(m_program, 1, "texCoord");
 	glBindAttribLocation(m_program, 2, "normal");
