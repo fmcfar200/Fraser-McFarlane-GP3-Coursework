@@ -2,6 +2,7 @@
 
 #include "Constants.h"
 #include "Transform.h"
+#include "Camera.h"
 class InputManager
 {
 private:
@@ -16,9 +17,11 @@ public:
 
 	static InputManager* getInstance();	//getter for instance of input manager
 
-	void UpdateInput(Transform trans);	//updates key inputs
+	void UpdateInput();	//updates key inputs
+	void CheckEvents(Transform trans, Camera* camera);
 	bool isKeyDown(SDL_Scancode sdlcode);	//checks is key is down
 	SDL_Joystick *joy;
 
+	bool mouseMoved = false;
 
 };

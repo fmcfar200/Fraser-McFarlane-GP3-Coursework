@@ -33,33 +33,51 @@ bool InputManager::isKeyDown(SDL_Scancode sdlcode)
 	return states[sdlcode];	//returns the key state of the passed in sdl scancode
 }
 
-void InputManager::UpdateInput(Transform trans)
+void InputManager::UpdateInput()
 {
 	states = SDL_GetKeyboardState(NULL);
 	//gets the keyboard state
-	SDL_Event evt;
+	
+}
 
+void InputManager::CheckEvents(Transform trans, Camera* camera)
+{
+	static SDL_Event evt;
 	while (SDL_PollEvent(&evt))
 	{
+		cout << "running" << endl;
+
 		if (evt.type == SDL_JOYBUTTONDOWN)
 		{
 			cout << "hello joystick" << endl;
-			
+
 			//if (evt.jbutton.which == 1)
 			{
 
 				cout << "button press" << endl;
-					//std::cout << evt.jaxis.value << "  stick value" << std::endl;
+				//std::cout << evt.jaxis.value << "  stick value" << std::endl;
 
-					/*
-					if (evt.jaxis.value <= 0)
-					{
-						trans.GetPos().x += 50.0f;
-						cout << "a move" << endl;
-					}
-					*/
-				
-			}
+				/*
+				if (evt.jaxis.value <= 0)
+				{
+				trans.GetPos().x += 50.0f;
+				cout << "a move" << endl;
+				}
+				*/
+
+			}	
+			
+		}
+
+		if (evt.type == SDL_MOUSEMOTION)
+		{
+			mouseMoved = true;
+
+		}
+		else
+		{
+
+			mouseMoved = false;
 		}
 	}
 }

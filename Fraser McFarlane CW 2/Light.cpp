@@ -12,8 +12,8 @@ Light::Light()
 	m_Ambient = lightColour4(0.0, 0.0, 0.0, 1.0);
 	m_Diffuse = lightColour4(1.0, 1.0, 1.0, 1.0);
 	m_Specular = lightColour4(1.0, 1.0, 1.0, 1.0);
-	m_Position = glm::vec4(0.0, 0.0, 1.0, 0.0);
-	m_SpotDirection = glm::vec3(0.0, 0.0, 1.0);
+	m_Position = glm::vec4(0.0, 1.0, 0.0, 0.0);
+	m_SpotDirection = glm::vec3(0.0, -1.0, 0.0);
 	m_SpotExponent = 0.0f;
 	m_SpotCutoff = 180.0f;
 	m_ConstantAttenuation = 1.0;

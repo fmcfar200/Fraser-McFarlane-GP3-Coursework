@@ -19,7 +19,7 @@ TheGame::~TheGame()
 
 void TheGame::InitObjects()
 {
-	mInputMgr = InputManager::getInstance();
+	theInputManager = InputManager::getInstance();
 	theSoundManager = SoundManager::getInstance();
 	theFontManager = FontManager::getInstance();
 
@@ -33,7 +33,8 @@ void TheGame::InitObjects()
 	ship = new ModelManager("res/Sample_Ship.obj");
 	ground = new ModelManager("res/desert.obj");
 
-	shader = new ShaderManager("res/lightShader");
+	shader = new ShaderManager("res/phongShader");
+	shader2 = new ShaderManager("res/basicShader");
 
 	textureRobot = new TextureManager("res/R1.jpg");
 	textureBomb = new TextureManager("res/RobotBad.jpg");
@@ -42,6 +43,8 @@ void TheGame::InitObjects()
 	textureDesert = new TextureManager("res/sand.jpg");
 
 	camera = new Camera(cameraTransform.GetPos(), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
+
+	
 
 	theSoundManager->add("Throw", sounds[0]);
 	theSoundManager->add("Hit", sounds[1]);
@@ -84,13 +87,17 @@ void TheGame::RunGame()
 
 		glPushMatrix();
 		display->setOrthographicProj(WIDTH, HEIGHT);
-		theFontManager->getFont("DrWho")->printText("Hello World", FTPoint(10.0f, 35.0f, 0.0f), colour3f(225.0f, 0.0f, 0.0f));
+		//LPCSTR temphealth = health.c_str();
+		theFontManager->getFont("DrWho")->printText("Health: ", FTPoint(10.0f, 35.0f, 0.0f), colour3f(225.0f, 0.0f, 0.0f));
 		glPopMatrix();
 
 		display->setMVP(WIDTH, HEIGHT);
-		mInputMgr->UpdateInput(cameraTransform); //update manager
 		UpdateAndRender();
+		theInputManager->CheckEvents(transformRobot, currentCam);
 		CheckCollisions();
+		theInputManager->UpdateInput(); //update manager
+
+		
 
 		/*
 		Test For Controller
@@ -98,34 +105,34 @@ void TheGame::RunGame()
 		
 
 		//perform transform to camera  from WASD
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_W))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_W))
 		{
 			cameraTransform.GetPos().z += 0.5f;
 		}
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_S))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_S))
 		{
 			cameraTransform.GetPos().z -= 0.5f;
 		}
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_A))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_A))
 		{
 			cameraTransform.GetPos().x += 0.5f;
 		}
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_D))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_D))
 		{
 			cameraTransform.GetPos().x -= 0.5f;
 		}
 		//Rotate player with Q and E
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_Q))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_Q))
 		{
 			transformRobot.GetRot().y += 0.1f;
 		}
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_E))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_E))
 		{
 			transformRobot.GetRot().y -= 0.1f;
 		}
 
 		//Fire bomb
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_SPACE))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_SPACE))
 		{
 			if (!bombFired)
 			{
@@ -148,14 +155,14 @@ void TheGame::RunGame()
 		}
 
 		//Init enemies 
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_TAB))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_TAB))
 		{
 			begin = true;
 			waveNo = 1;
 		
 		}
 
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_C))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_C))
 		{
 			Transform tempTrans = cameraTransform.GetPos();
 			if (!camSwitch)
@@ -185,7 +192,7 @@ void TheGame::RunGame()
 			camSwitch = false;
 		}
 
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_M))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_M))
 		{
 			if (theSoundManager->mute == false)
 			{
@@ -198,11 +205,11 @@ void TheGame::RunGame()
 			}
 		}
 
-		if (mInputMgr->isKeyDown(SDL_SCANCODE_ESCAPE))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_ESCAPE))
 		{
 			SDL_Quit();
 		}
-
+		
 
 		//display colour set to WHite
 		display->ClearDisplayColour(0.0f, 0.0f, 0.5f, 1.0f);
@@ -256,6 +263,7 @@ void TheGame::UpdateAndRender()
 	else
 	{
 		currentCam = camera2;
+		//currentCam.Rotation();
 	}
 
 	//Set transform of first object
@@ -277,25 +285,25 @@ void TheGame::UpdateAndRender()
 	camera2Transform.SetPos(glm::vec3(transformRobot.GetPos().x,
 		transformRobot.GetPos().y + 6.0f, transformRobot.GetPos().z + 2.0f));
 
+
 	//bind and update shader, bind texture and draw the mesh
 	shader->BindShader();
-	shader->Update(transformRobot, currentCam);
+	shader->Update(transformRobot, currentCam, phongLight);
 	textureRobot->BindTexture(0);
 	robot->DrawMesh();
 
 	shader->BindShader();
-	shader->Update(player->getTrans(), currentCam);
+	shader->Update(player->getTrans(), currentCam, phongLight);
 	player->Render();
 
 
-
 	shader->BindShader();
-	shader->Update(transformShip, currentCam);
+	shader->Update(transformShip, currentCam,phongLight);
 	textureShip->BindTexture(0);
 	ship->DrawMesh();
 
-	shader->BindShader();
-	shader->Update(transformGround, currentCam);
+	shader2->BindShader();
+	shader2->Update(transformGround, currentCam);
 	textureDesert->BindTexture(0);
 	ground->DrawMesh();
 

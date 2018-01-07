@@ -10,6 +10,7 @@
 
 //SDL 
 #include <SDL2\SDL.h>
+#include <SDL2\SDL_events.h>
 
 //OpenGL and Windows
 #include <GL\glew.h>

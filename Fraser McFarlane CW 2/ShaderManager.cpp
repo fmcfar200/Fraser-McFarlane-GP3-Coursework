@@ -27,6 +27,10 @@ void ShaderManager::SetUniforms()
 {
 	//Updates the location of the attributes
 	m_uniforms[TRANSFORM_U] = glGetUniformLocation(m_program, "transform");
+	m_uniforms[LPOS_U] = glGetUniformLocation(m_program, "lightPos");
+	m_uniforms[SPOTDIR_U] = glGetUniformLocation(m_program, "spotDirection");
+
+	
 	//m_uniforms[CAMDIR_UNIF] = glGetUniformLocation(m_program, "cameraDirection");s
 }
 
@@ -64,16 +68,20 @@ void ShaderManager::BindShader()
 }
 
 //Used to update the transforms of the models in relation to the camera
-void ShaderManager::Update(const Transform& transform, const Camera& camera)
+void ShaderManager::Update(const Transform& transform, const Camera& camera, const Light& light)
 {
 	glm::mat4 model = camera.GetViewProjectionMatrix() * transform.GetModel();
 
 	glUniformMatrix4fv(m_uniforms[TRANSFORM_U], 1, GL_FALSE, &model[0][0]);
+	glUniform3f(m_uniforms[LPOS_U], light.m_Position.x, light.m_Position.y, light.m_Position.z);
+	glUniform3f(m_uniforms[SPOTDIR_U], light.m_SpotDirection.x, light.m_SpotDirection.y, light.m_SpotDirection.z);
+
+
 	//glUniform3f(m_uniforms[CAMDIR_UNIF], camera.GetForwardV().x, camera.GetForwardV().y, camera.GetForwardV().z);
 }
-void ShaderManager::Update(const Transform *transform, const Camera& camera)
+void ShaderManager::Update(const Transform& transform, const Camera& camera)
 {
-	glm::mat4 model = camera.GetViewProjectionMatrix() * transform->GetModel();
+	glm::mat4 model = camera.GetViewProjectionMatrix() * transform.GetModel();
 
 	glUniformMatrix4fv(m_uniforms[TRANSFORM_U], 1, GL_FALSE, &model[0][0]);
 	//glUniform3f(m_uniforms[CAMDIR_UNIF], camera.GetForwardV().x, camera.GetForwardV().y, camera.GetForwardV().z);

@@ -3,7 +3,7 @@
 #include "Constants.h"
 #include "transform.h"
 #include "Camera.h"
-
+#include "Light.h"
 
 class ShaderManager
 {
@@ -14,6 +14,8 @@ private:
 	enum
 	{
 		TRANSFORM_U,
+		LPOS_U,
+		SPOTDIR_U,
 		NUM_UNIFORMS
 	};
 
@@ -38,7 +40,7 @@ public:
 
 	void BindShader();	//binds the shader
 	void Update(const Transform& transform, const Camera& camera); //update using teh transform and camera
-	void Update(const Transform *transform, const Camera& camera);
+	void Update(const Transform& transform, const Camera& camera, const Light& light);
 
 
 };

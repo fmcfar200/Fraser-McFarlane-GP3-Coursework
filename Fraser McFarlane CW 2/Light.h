@@ -20,15 +20,17 @@ public:
 	void lightOn();
 	void lightOff();
 
-private:
-
-	GLenum m_LightID;
 	lightColour4 m_Ambient;
 	lightColour4 m_Diffuse;
 	lightColour4 m_Specular;
-	
+
 	vec4 m_Position;
 	vec3 m_SpotDirection;
+
+private:
+
+	GLenum m_LightID;
+	
 
 	GLfloat  m_SpotExponent;
 	GLfloat  m_SpotCutoff;

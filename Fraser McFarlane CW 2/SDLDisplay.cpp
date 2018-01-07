@@ -117,6 +117,7 @@ void SDLDisplay::SwapBuffers()
 	//Swaps the buffers and checks if the window has been closed
 	SDL_GL_SwapWindow(m_theWindow);
 
+	/*
 	SDL_Event e;
 
 	while (SDL_PollEvent(&e))
@@ -126,4 +127,6 @@ void SDLDisplay::SwapBuffers()
 			m_displayClosed = true;
 		}
 	}
+
+	*/
 }

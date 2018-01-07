@@ -31,7 +31,7 @@ private:
 	void UpdateAndRender();
 	void CheckCollisions();
 
-	InputManager* mInputMgr;
+	InputManager* theInputManager;
 	SoundManager* theSoundManager;
 	FontManager* theFontManager;
 
@@ -50,6 +50,7 @@ private:
 	ModelManager* ground;
 
 	ShaderManager* shader;
+	ShaderManager* shader2;
 
 	TextureManager* textureRobot;
 	TextureManager* textureBomb;
@@ -70,7 +71,7 @@ private:
 	Camera* camera2;
 	Camera* currentCam;
 
-	
+	Light phongLight;
 
 
 
@@ -92,7 +93,7 @@ private:
 	float fireDelay = 1.0f;
 	float camTimer = 0;
 
-	float health = 100;
+	int health = 100;
 
 
 
