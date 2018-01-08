@@ -25,7 +25,7 @@ void TheGame::InitObjects()
 	theSoundManager = SoundManager::getInstance();
 	theFontManager = FontManager::getInstance();
 
-	display = new SDLDisplay(WIDTH, HEIGHT, "HEllo");	//display is constructed
+	display = new SDLDisplay(WIDTH, HEIGHT, "FRASER MCFARLANE GP3 COURSEWORK PROJECT - ALIEN SURVIVAL");	//display is constructed
 
 	//models are created
 	robot = new ModelManager("res/R01.obj");
@@ -74,15 +74,23 @@ void TheGame::SetTransforms()
 }
 void TheGame::RunGame()
 {
-	theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);	//music is played
+	theSoundManager->getSnd("Music")->playAudio(AL_TRUE);	//music is played
 
-	
+	if (theSoundManager->mute == true)
+	{
+		theSoundManager->getSnd("Music")->stopAudio();
+	}
+	else
+	{
+		theSoundManager->getSnd("Music")->playAudio(AL_TRUE);
+	}
+
 	glPopMatrix();
 	//while the display is not closed
 	while (!display->IsClosed())
 	{
 		
-		
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 

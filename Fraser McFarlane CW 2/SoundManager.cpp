@@ -5,7 +5,6 @@ SoundManager.cpp
 */
 
 #include "SoundManager.h"
-
 SoundManager* SoundManager::pInstance = NULL;
 
 /*
