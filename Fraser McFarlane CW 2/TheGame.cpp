@@ -7,6 +7,7 @@ LPCSTR fonts[1] = { "res/doctor_who.ttf" };
 
 TheGame::TheGame()
 {
+	//object and transforms are initalised
 	InitObjects();
 	SetTransforms();
 
@@ -19,37 +20,41 @@ TheGame::~TheGame()
 
 void TheGame::InitObjects()
 {
+	//instamces recieved
 	theInputManager = InputManager::getInstance();
 	theSoundManager = SoundManager::getInstance();
 	theFontManager = FontManager::getInstance();
 
-	display = new SDLDisplay(WIDTH, HEIGHT, "HEllo");
+	display = new SDLDisplay(WIDTH, HEIGHT, "HEllo");	//display is constructed
 
-	
-	player = new Player(vec3(-50, 0, -350), "res/R1.jpg", "res/R01.obj");
+	//models are created
 	robot = new ModelManager("res/R01.obj");
 	bomb = new ModelManager("res/Bob.obj");
 	enemy = new ModelManager("res/Alien.obj");
 	ship = new ModelManager("res/Sample_Ship.obj");
 	ground = new ModelManager("res/desert.obj");
 
+	//shders are created
 	shader = new ShaderManager("res/phongShader");
 	shader2 = new ShaderManager("res/basicShader");
 
+	//textures are created
 	textureRobot = new TextureManager("res/R1.jpg");
 	textureBomb = new TextureManager("res/RobotBad.jpg");
 	textureAlien = new TextureManager("res/Alien.jpg");
 	textureShip = new TextureManager("res/sh3.jpg");
 	textureDesert = new TextureManager("res/sand.jpg");
 
+	//camera initialsed
 	camera = new Camera(cameraTransform.GetPos(), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
 
 	
-
+	//sounds added
 	theSoundManager->add("Throw", sounds[0]);
 	theSoundManager->add("Hit", sounds[1]);
 	theSoundManager->add("Music", sounds[2]);
 
+	//font added (BROKEN)
 	theFontManager->addFont("DrWho", fonts[0], 48);
 
 
@@ -58,6 +63,7 @@ void TheGame::InitObjects()
 
 void TheGame::SetTransforms()
 {
+	//transforms are set for scaling and positioning
 	transformBomb.SetScale(glm::vec3(5, 5, 5));
 
 	transformShip.SetScale(glm::vec3(80, 80, 80));
@@ -68,7 +74,7 @@ void TheGame::SetTransforms()
 }
 void TheGame::RunGame()
 {
-	theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);
+	theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);	//music is played
 
 	
 	glPopMatrix();
@@ -80,6 +86,8 @@ void TheGame::RunGame()
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
+
+		//Broken font code
 		glPushMatrix();
 		display->setOrthographicProj(WIDTH, HEIGHT);
 		//LPCSTR temphealth = health.c_str();
@@ -87,15 +95,15 @@ void TheGame::RunGame()
 		glPopMatrix();
 
 		display->setMVP(WIDTH, HEIGHT);
-		UpdateAndRender();
-		theInputManager->CheckEvents(transformRobot, currentCam);
+		UpdateAndRender();	//update and render
+		theInputManager->CheckEvents(transformRobot, currentCam);	//check for input events
 		CheckCollisions();
 		theInputManager->UpdateInput(); //update manager
 
 		
 
 		/*
-		Test For Controller
+		controller code 
 		*/
 		if (theInputManager->leftMove)
 		{
@@ -181,6 +189,7 @@ void TheGame::RunGame()
 			}
 		}
 
+		//camera switch
 		if (theInputManager->isKeyDown(SDL_SCANCODE_C) || theInputManager->camswitch)
 		{
 			theInputManager->camswitch = false;
@@ -212,6 +221,7 @@ void TheGame::RunGame()
 			camSwitch = false;
 		}
 
+		//mute toggle
 		if (theInputManager->isKeyDown(SDL_SCANCODE_M) || theInputManager->mute)
 		{
 			theInputManager->mute = false;
@@ -226,6 +236,7 @@ void TheGame::RunGame()
 			}
 		}
 
+		//quit
 		if (theInputManager->isKeyDown(SDL_SCANCODE_ESCAPE))
 		{
 			SDL_Quit();
@@ -245,6 +256,8 @@ void TheGame::RunGame()
 void TheGame::CheckCollisions()
 {
 	//COLLISION DETECTION
+
+	//hit between bomb and enemy
 	for (vector<Bomb*>::iterator bombIterartor = theBombs.begin(); bombIterartor != theBombs.end(); ++bombIterartor)
 	{
 		(*bombIterartor)->update();
@@ -259,6 +272,7 @@ void TheGame::CheckCollisions()
 		}
 	}
 
+	//hit between enemy and player
 	for (vector<Enemy*>::iterator enemyIterator = thEnemies.begin(); enemyIterator != thEnemies.end(); ++enemyIterator)
 	{
 		if ((*enemyIterator)->SphereCollision(transformRobot.GetPos(), 2.5f))
@@ -277,7 +291,7 @@ void TheGame::CheckCollisions()
 void TheGame::UpdateAndRender()
 {
 	
-
+	//camera reinitialised
 	Camera camera(cameraTransform.GetPos(), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
 	Camera camera2(camera2Transform.GetPos(), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
 	Camera currentCam;
@@ -297,16 +311,11 @@ void TheGame::UpdateAndRender()
 	transformRobot.GetPos().x = cameraTransform.GetPos().x;
 	transformRobot.GetPos().z = cameraTransform.GetPos().z;
 
-	player->getTrans().GetPos().x = cameraTransform.GetPos().x;
-	player->getTrans().GetPos().z = cameraTransform.GetPos().z;
 
 	transformRobot.GetPos().z += 20.0f;
 	transformRobot.GetPos().x += 10.0f;
 	transformRobot.GetPos().y = 10.0f;
 
-	player->getTrans().GetPos().z += 20;
-	player->getTrans().GetPos().x += 10.0f;
-	player->getTrans().GetPos().y = 10.0f;
 
 	camera2Transform.SetPos(glm::vec3(transformRobot.GetPos().x,
 		transformRobot.GetPos().y + 6.0f, transformRobot.GetPos().z + 2.0f));
@@ -317,10 +326,6 @@ void TheGame::UpdateAndRender()
 	shader->Update(transformRobot, currentCam, phongLight);
 	textureRobot->BindTexture(0);
 	robot->DrawMesh();
-
-	shader->BindShader();
-	shader->Update(player->getTrans(), currentCam, phongLight);
-	player->Render();
 
 
 	shader->BindShader();
@@ -333,14 +338,16 @@ void TheGame::UpdateAndRender()
 	textureDesert->BindTexture(0);
 	ground->DrawMesh();
 
+	//wave code
 	if (begin)
 	{
+		//if started
 		if (waveStarted)
 		{
 			system("CLS");
 			waveStarted = false;
 			waveNo++;
-
+			//spawn enemies
 			for (int i = 0; i < spawnCount; i++)
 			{
 				thEnemies.push_back(new Enemy(vec3((rand() % 250) - 100 , 0, rand()% 100 + 250)));
@@ -353,6 +360,7 @@ void TheGame::UpdateAndRender()
 		}
 		else
 		{
+			//reset 
 			if (enemiesAlive <= 0)
 			{
 				thEnemies.clear();
@@ -434,6 +442,7 @@ void TheGame::UpdateAndRender()
 		}
 	}
 
+	//if game over then display stuff in console
 	if (health <= 0)
 	{
 
@@ -451,6 +460,4 @@ void TheGame::UpdateAndRender()
 	//Swap the buffer for a window
 	display->SwapBuffers();
 
-	//increase counter
-	//counter += 0.01f;
 }

@@ -1,13 +1,20 @@
-﻿Build started 08/01/2018 02:48:52.
+﻿Build started 08/01/2018 03:17:09.
      1>Project "C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Fraser McFarlane CW 2\Fraser McFarlane CW 2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Fraser\Documents\Uni\GP3\Fraser McFarlane CW 2\Fraser McFarlane CW 2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_DEPRECATE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TheGame.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Fraser\Documents\Uni\GP3\Fraser McFarlane CW 2\Fraser McFarlane CW 2\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_DEPRECATE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TheGame.cpp main.cpp
          TheGame.cpp
      1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\camera.h(81): warning C4244: '=' : conversion from 'glm::uint32' to 'GLfloat', possible loss of data
      1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\camera.h(89): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\camera.h(90): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\thegame.cpp(71): warning C4305: 'argument' : truncation from 'int' to 'ALboolean'
-     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\thegame.cpp(71): warning C4309: 'argument' : truncation of constant value
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\thegame.cpp(70): warning C4305: 'argument' : truncation from 'int' to 'ALboolean'
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\thegame.cpp(70): warning C4309: 'argument' : truncation of constant value
+         Generating Code...
+         Compiling...
+         main.cpp
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\camera.h(81): warning C4244: '=' : conversion from 'glm::uint32' to 'GLfloat', possible loss of data
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\camera.h(89): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\fraser\documents\uni\gp3\cw\fraser mcfarlane gp3 coursework\fraser mcfarlane cw 2\camera.h(90): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Debug\Fraser McFarlane CW 2.exe" /INCREMENTAL /NOLOGO OpenGL32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Debug\Fraser McFarlane CW 2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Fraser\Documents\Uni\GP3\CW\Fraser McFarlane GP3 Coursework\Debug\Fraser McFarlane CW 2.lib" /MACHINE:X86 Debug\Bomb.obj
          Debug\Light.obj
@@ -40,4 +47,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.45
+Time Elapsed 00:00:02.87
