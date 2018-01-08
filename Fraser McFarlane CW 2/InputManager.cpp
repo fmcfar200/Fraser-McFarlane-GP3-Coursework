@@ -45,27 +45,85 @@ void InputManager::CheckEvents(Transform trans, Camera* camera)
 	static SDL_Event evt;
 	while (SDL_PollEvent(&evt))
 	{
-		cout << "running" << endl;
-
 		if (evt.type == SDL_JOYBUTTONDOWN)
 		{
-			cout << "hello joystick" << endl;
+			cout << (int)evt.jbutton.button << endl;
+			if (evt.jbutton.button == 0)
+			{
+				fire = true;
+			}
+			else if (evt.jbutton.button == 7)
+			{
+				start = true;
+			}
+			else if (evt.jbutton.button == 6)
+			{
+				mute = true;
+			}
+			else if (evt.jbutton.button == 1)
+			{
+				camswitch = true;
+			}
 
-			//if (evt.jbutton.which == 1)
+		}
+		if (evt.type == SDL_JOYAXISMOTION)
+		{
+
+			if (evt.jaxis.value < -3200 || evt.jaxis.value > 3200)
 			{
 
-				cout << "button press" << endl;
-				//std::cout << evt.jaxis.value << "  stick value" << std::endl;
-
-				/*
-				if (evt.jaxis.value <= 0)
+				if (evt.jaxis.axis == 0)
 				{
-				trans.GetPos().x += 50.0f;
-				cout << "a move" << endl;
-				}
-				*/
 
-			}	
+					if (evt.jaxis.value < -3200)
+					{
+						leftMove = true;
+						rightmove = false;
+						upmove = false;
+						downmove = false;
+					}
+					else if (evt.jaxis.value > 3200)
+					{
+						leftMove = false;
+						rightmove = true;
+						upmove = false;
+						downmove = false;
+					}
+					else
+					{
+						leftMove = false;
+						rightmove = false;
+						upmove = false;
+						downmove = false;
+					}
+
+				}
+
+				if (evt.jaxis.axis == 1)
+				{
+					if (evt.jaxis.value < -3200)
+					{
+						leftMove = false;
+						rightmove = false;
+						upmove = false;
+						downmove = true;
+					}
+					else if (evt.jaxis.value > 3200)
+					{
+						leftMove = false;
+						rightmove = false;
+						upmove = true;
+						downmove = false;
+					}
+					else
+					{
+						leftMove = false;
+						rightmove = false;
+						upmove = false;
+						downmove = false;
+					}
+				}
+			}
 			
 		}
 

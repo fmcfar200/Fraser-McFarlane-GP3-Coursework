@@ -24,4 +24,7 @@ public:
 
 	bool mouseMoved = false;
 
+	bool leftMove, rightmove, upmove, downmove = false;
+
+	bool start, fire, camswitch, mute = false;
 };

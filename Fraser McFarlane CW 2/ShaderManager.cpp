@@ -36,7 +36,7 @@ void ShaderManager::SetUniforms()
 
 void ShaderManager::AttachAttribs()
 {
-	//mapping of attribs
+	//binding of attribs
 	glBindAttribLocation(m_program, 0, "position");
 	glBindAttribLocation(m_program, 1, "texCoord");
 	glBindAttribLocation(m_program, 2, "normal");
@@ -51,7 +51,7 @@ void ShaderManager::AttachAttribs()
 }
 ShaderManager::~ShaderManager()
 {
-	//Detaches the shaders from the shader program and deletes them
+	//Detaches the shaders
 	for (unsigned int i = 0; i < NUM_SHADER; i++)
 	{
 		glDetachShader(m_program, m_shaders[i]);
@@ -67,7 +67,7 @@ void ShaderManager::BindShader()
 	glUseProgram(m_program);
 }
 
-//Used to update the transforms of the models in relation to the camera
+//updates transform, light pos and spot direction
 void ShaderManager::Update(const Transform& transform, const Camera& camera, const Light& light)
 {
 	glm::mat4 model = camera.GetViewProjectionMatrix() * transform.GetModel();
@@ -92,17 +92,16 @@ void ShaderManager::Update(const Transform& transform, const Camera& camera)
 	//Creates the shader
 	GLuint shader = glCreateShader(shaderType);
 
-	//Checks the shader exists
 	if (shader == 0)
 	{
 		std::cerr << "Error:Shader creation failed" << std::endl;
 	}
 
-	//Creates a list of strings from the shader and saves the length of the string
+	//Creates an array of strings 
 	const GLchar* shaderSourceStrings[1];
 	GLint shaderSourceStringLengths[1];
 
-	//Translate the previous strings into C language and takes in the length 
+	//casts to character
 	shaderSourceStrings[0] = text.c_str();
 	shaderSourceStringLengths[0] = text.length();
 
@@ -148,7 +147,7 @@ std::string ShaderManager::LoadShader(const std::string& fileName)
 //Check for errors in the shader
 void ShaderManager::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)
 {
-	//gl success and error integer are char
+	//gl success
 	GLint success = 0;
 	GLchar error[1024] = { 0 };
 

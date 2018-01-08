@@ -70,11 +70,6 @@ void TheGame::RunGame()
 {
 	theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);
 
-	if (theSoundManager->getSnd("Music")->isPlaying() == false)
-	{
-		theSoundManager->getSnd("Music")->playAudio(AL_LOOPING);
-
-	}
 	
 	glPopMatrix();
 	//while the display is not closed
@@ -102,8 +97,27 @@ void TheGame::RunGame()
 		/*
 		Test For Controller
 		*/
-		
+		if (theInputManager->leftMove)
+		{
+			cameraTransform.GetPos().x += 0.5f;
 
+		}
+		else if (theInputManager->rightmove)
+		{
+			cameraTransform.GetPos().x -= 0.5f;
+
+		}
+		else if (theInputManager->upmove)
+		{
+			cameraTransform.GetPos().z -= 0.5f;
+
+		}
+		else if (theInputManager->downmove)
+		{
+			cameraTransform.GetPos().z += 0.5f;
+
+		}
+		
 		//perform transform to camera  from WASD
 		if (theInputManager->isKeyDown(SDL_SCANCODE_W))
 		{
@@ -132,8 +146,10 @@ void TheGame::RunGame()
 		}
 
 		//Fire bomb
-		if (theInputManager->isKeyDown(SDL_SCANCODE_SPACE))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_SPACE) || theInputManager->fire)
 		{
+			theInputManager->fire = false;
+
 			if (!bombFired)
 			{
 				theBombs.push_back(new Bomb(transformRobot));
@@ -143,6 +159,7 @@ void TheGame::RunGame()
 
 				bombFired = true;
 				timer = fireDelay;
+
 			}
 		}
 		else if (timer > 0)
@@ -155,15 +172,18 @@ void TheGame::RunGame()
 		}
 
 		//Init enemies 
-		if (theInputManager->isKeyDown(SDL_SCANCODE_TAB))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_TAB) || theInputManager->start)
 		{
-			begin = true;
-			waveNo = 1;
-		
+			if (begin == false)
+			{
+				begin = true;
+				//waveNo++;
+			}
 		}
 
-		if (theInputManager->isKeyDown(SDL_SCANCODE_C))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_C) || theInputManager->camswitch)
 		{
+			theInputManager->camswitch = false;
 			Transform tempTrans = cameraTransform.GetPos();
 			if (!camSwitch)
 			{
@@ -192,8 +212,9 @@ void TheGame::RunGame()
 			camSwitch = false;
 		}
 
-		if (theInputManager->isKeyDown(SDL_SCANCODE_M))
+		if (theInputManager->isKeyDown(SDL_SCANCODE_M) || theInputManager->mute)
 		{
+			theInputManager->mute = false;
 			if (theSoundManager->mute == false)
 			{
 				theSoundManager->mute = true;
@@ -214,7 +235,11 @@ void TheGame::RunGame()
 		//display colour set to WHite
 		display->ClearDisplayColour(0.0f, 0.0f, 0.5f, 1.0f);
 
+		cout << "Health: " << health <<"	" << "Wave: " << waveNo << endl;
+
+
 	}
+
 }
 
 void TheGame::CheckCollisions()
@@ -241,7 +266,8 @@ void TheGame::CheckCollisions()
 			(*enemyIterator)->isActive = false;
 			theSoundManager->getSnd("Hit")->playAudio(AL_TRUE);
 			health -= 35;
-			cout << health << endl;
+			system("CLS");
+
 		}
 		
 	}
@@ -311,8 +337,10 @@ void TheGame::UpdateAndRender()
 	{
 		if (waveStarted)
 		{
+			system("CLS");
 			waveStarted = false;
 			waveNo++;
+
 			for (int i = 0; i < spawnCount; i++)
 			{
 				thEnemies.push_back(new Enemy(vec3((rand() % 250) - 100 , 0, rand()% 100 + 250)));
@@ -390,6 +418,8 @@ void TheGame::UpdateAndRender()
 		if ((*enemyIterartor)->enemyTrans.GetPos().z <= -500)
 		{
 			health -= 20;
+			system("CLS");
+
 			(*enemyIterartor)->isActive = false;
 		}
 
@@ -406,8 +436,10 @@ void TheGame::UpdateAndRender()
 
 	if (health <= 0)
 	{
+
 		cout << "GAME OVER" << endl;
 		cout << "You survived until wave " << waveNo << flush << endl;
+		system("CLS");
 		display->~SDLDisplay();
 	}
 
